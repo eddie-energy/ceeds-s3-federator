@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: CEEDS S3 Federator API
+  version: 0.0.1
+  description: Spec-first API for the CEEDS S3 Federator service.
+
+servers:
+  - url: /api
+    description: Default API base path (relative to current host)
+  - url: http://localhost:8080/api
+    description: Local development server
+
+tags:
+  - name: Ping
+    description: Liveness / smoke endpoint
+
+paths:
+  /ping:
+    get:
+      tags: [ Ping ]
+      operationId: getPing
+      summary: Liveness ping
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pong'
+
+components:
+  schemas:
+    Pong:
+      type: object
+      properties:
+        message:
+          type: string
+          example: pong
+        timestamp:
+          type: string
+          format: date-time

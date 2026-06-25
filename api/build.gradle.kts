@@ -1,0 +1,60 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    `java-library`
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.openapi.generator)
+}
+
+group = "energy.eddie.ceeds.s3federator.api"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // `api` scope: types appear in generated public signatures (ResponseEntity, models),
+    // so consumers (s3-federator) get them transitively.
+    api(libs.spring.boot.starter.web)
+    api(libs.spring.boot.starter.validation)
+}
+
+val apiGenerateDir = layout.buildDirectory.dir("generated").get().asFile.path
+
+tasks.register<GenerateTask>("generateServerApi") {
+    generatorName = "spring"
+    inputSpec = "${rootDir}/api-specs/s3-federator-api.yml"
+    outputDir = apiGenerateDir
+    apiPackage = "energy.eddie.ceeds.s3federator.generated.api"
+    modelPackage = "energy.eddie.ceeds.s3federator.generated.model"
+    configOptions = mapOf(
+        "interfaceOnly" to "true",
+        "useTags" to "true",
+        "useSpringBoot3" to "true",
+        "openApiNullable" to "false",
+        "documentationProvider" to "none",
+        "annotationLibrary" to "none",
+    )
+    // Map OpenAPI date-time to Instant instead of OffsetDateTime.
+    typeMappings = mapOf("OffsetDateTime" to "java.time.Instant")
+    importMappings = mapOf("OffsetDateTime" to "java.time.Instant")
+}
+
+tasks.named("compileJava") {
+    dependsOn(tasks.named("generateServerApi"))
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("${apiGenerateDir}/src/main/java")
+        }
+    }
+}

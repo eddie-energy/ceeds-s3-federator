@@ -1,0 +1,49 @@
+[versions]
+errorprone = "4.3.0"
+errorprone-core = "2.41.0"
+flyway = "11.8.0"
+google-jib = "3.4.0"
+jackson = "2.18.2"
+jackson-databind-nullable = "0.2.6"
+junit-platform = "1.11.4"
+freefair-lombok = "8.14.2"
+jsr305 = "3.0.2"
+mapstruct = "1.6.3"
+nullaway = "0.12.9"
+openapi-generator = "7.21.0"
+postgresql = "42.7.8"
+spring-boot = "3.5.0"
+spring-dependency-management = "1.1.7"
+
+[libraries]
+errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone-core" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+jackson-databind-nullable = { module = "org.openapitools:jackson-databind-nullable", version.ref = "jackson-databind-nullable" }
+jackson-dataformat-xml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml", version.ref = "jackson" }
+jackson-jakarta-xmlbind-annotations = { module = "com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations", version.ref = "jackson" }
+jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
+nullaway = { module = "com.uber.nullaway:nullaway", version.ref = "nullaway" }
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+
+[bundles]
+flyway-runtime = ["flyway-core", "flyway-database-postgresql"]
+jackson-impl = ["jackson-databind-nullable", "jackson-dataformat-xml", "jackson-jakarta-xmlbind-annotations"]
+spring-impl = ["spring-boot-starter-actuator", "spring-boot-starter-data-jpa", "spring-boot-starter-web"]
+spring-test-impl = ["spring-boot-starter-test"]
+
+[plugins]
+errorprone = { id = "net.ltgt.errorprone", version.ref = "errorprone" }
+freefair-lombok = { id = "io.freefair.lombok", version.ref = "freefair-lombok" }
+google-jib = { id = "com.google.cloud.tools.jib", version.ref = "google-jib" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }

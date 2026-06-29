@@ -19,12 +19,11 @@ CREATE TABLE field
 CREATE TABLE reference_data_object_version
 (
     id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    major_version            INT       NOT NULL,
-    minor_version            INT       NOT NULL,
+    version_code             INT       NOT NULL,
     publish_state            TEXT      NOT NULL,
     created_at               TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     reference_data_object_id UUID      NOT NULL REFERENCES reference_data_object (id),
-    UNIQUE (reference_data_object_id, major_version, minor_version)
+    UNIQUE (reference_data_object_id, version_code)
 );
 
 CREATE INDEX IF NOT EXISTS idx_rdo_version_object_id

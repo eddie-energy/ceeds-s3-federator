@@ -34,11 +34,7 @@ public class ReferenceDataObjectVersion {
 
     @Setter
     @Column(nullable = false)
-    protected int majorVersion;
-
-    @Setter
-    @Column(nullable = false)
-    protected int minorVersion;
+    protected int versionCode;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -59,11 +55,10 @@ public class ReferenceDataObjectVersion {
             inverseJoinColumns = @JoinColumn(name = "field_id", referencedColumnName = "id"))
     protected List<Field> fields = new ArrayList<>();
 
-    public ReferenceDataObjectVersion(ReferenceDataObject referenceDataObject, int majorVersion, int minorVersion,
+    public ReferenceDataObjectVersion(ReferenceDataObject referenceDataObject, int versionCode,
             PublishState publishState) {
         this.referenceDataObject = referenceDataObject;
-        this.majorVersion = majorVersion;
-        this.minorVersion = minorVersion;
+        this.versionCode = versionCode;
         this.publishState = publishState;
         this.createdAt = Instant.now();
     }

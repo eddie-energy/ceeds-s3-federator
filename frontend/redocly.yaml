@@ -1,0 +1,5 @@
+apis:
+  backend@v1:
+    root: ../api-specs/backend-api.yml
+    x-openapi-ts:
+      output: ./src/schema.d.ts
